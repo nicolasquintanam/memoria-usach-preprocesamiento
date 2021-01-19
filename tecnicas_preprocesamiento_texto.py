@@ -2,7 +2,6 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.util import ngrams
 from nltk import SnowballStemmer
-
 import es_core_news_sm
 
 
@@ -45,3 +44,24 @@ def pos_tagging(word_list):
 # Ejemplo con n=2 para [hola, como, estas, bien] -> [(hola, como), (como, estas), (estas, bien)].
 def ngram(word_list, n):
     return list(ngrams(word_list, n))
+
+# Técnica 'Lematización'.  Permite transformar cada palabra de un listado, en la versión como apa-
+# rece en el diccionario. Ejemplo: [corrí, correré, corriendo] -> [correr].  Cabe destacar, que la 
+# Lematización en la biblioteca Spacy, para el español, no diferencia el etiquetado gramatical, es
+# decir, no diferencia si la palabra 'vino' es del verbo 'venir', o 'vino' de bebida alcohólica.
+# Para solucionar esto, se puede utilizar la técnica POS Tagging antes de la Lematización, y utili-
+# zar un diccionario que indique la palabra, el lema y el etiquetado gramatical.
+def lemmatization(word_list, dictionary=None):
+    #Lematización sin información de Etiquetado Gramatical
+    if(dictionary is None):
+        nlp = es_core_news_sm.load()
+        doc = nlp(' '.join(word_list))
+        new_word_list = []
+        for word in doc:
+            new_word_list.append(word.lemma_)
+        return new_word_list
+    # Lematización con información de Etiquetado Gramatical, solo se puede utilizar
+    # si antes, se utiliza la técnica POS Tagging, y se indica por parámetro el di-
+    # ccionario gramatical.
+    else:
+        return []
