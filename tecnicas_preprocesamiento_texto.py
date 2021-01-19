@@ -1,6 +1,8 @@
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
+from nltk.util import ngrams
 from nltk import SnowballStemmer
+
 import es_core_news_sm
 
 
@@ -37,3 +39,9 @@ def pos_tagging(word_list):
     for word in doc:
         new_word_list.append((word.text, word.pos_))
     return new_word_list
+
+# Técnica 'N-Gramas'. Permite representar una secuencia de n palabras contiguas en el texto. Para 
+# transformarlo en un listado. 
+# Ejemplo con n=2 para [hola, como, estas, bien] -> [(hola, como), (como, estas), (estas, bien)].
+def ngram(word_list, n):
+    return list(ngrams(word_list, n))
