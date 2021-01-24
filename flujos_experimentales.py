@@ -1,10 +1,8 @@
 from tecnicas_preprocesamiento_texto import *
 from utilidades import *
 import pickle
-
 import os.path
 from os import path
-
 
 print("Creando diccionario de lematización")
 dictionary = {}
