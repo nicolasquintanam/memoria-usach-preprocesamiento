@@ -1,7 +1,7 @@
 from utilidades import *
 
 # Permite crear el vector one hot y exportarlo a un archivo CSV.
-def one_hot(corpus, preprocessing_function, listado_palabras_frecuencia_1):
+def one_hot(corpus, preprocessing_function, words_frequency_1):
     archivo_salida = open('output files/dataset.csv', 'w')
     archivo = open(corpus, 'r')
     vector = []                     # Vector OneHot como array
@@ -17,7 +17,7 @@ def one_hot(corpus, preprocessing_function, listado_palabras_frecuencia_1):
         licitaciones_id.append(linea[0])
         categorias_licitaciones.append(linea[2].replace('\n', ''))
         linea = linea[1]                                            # linea = "Este es un texto.
-        linea = standardize(linea, listado_palabras_frecuencia_1)   # linea = "este es un texto"
+        linea = standardize(linea, words_frequency_1)               # linea = "este es un texto"
 
         # Comienza el flujo de preprocesamiento de texto por cada línea, es decir, cada documento.
         preprocessing_line = preprocessing_function(linea)
@@ -40,21 +40,22 @@ def one_hot(corpus, preprocessing_function, listado_palabras_frecuencia_1):
             else:                                   #   -   words_one_hot =         ["este", "ser", "un", "texto"]                                      
                 indice = words_one_hot.index(word)  #   -   words_one_hot_count =   [4, 2, 5, 1]                                          
                 words_one_hot_count[indice] += 1    # Con el ejemplo,  quiere decir que la palabra "texto" se encuentra solo en un                                           
-    cantidad_lineas += 1                            # documento, por lo tanto, no tiene relevancia en el vector OneHot.                                                   
+        cantidad_lineas += 1                        # documento, por lo tanto, no tiene relevancia en el vector OneHot.                                                   
     
 
-    
-    
+
     new_words_one_hot = []
     if(cantidad_lineas > 1):
         # Se crea una nueva variable de palabras del vector OneHot que almacene las palabras 
-        # del vector OneHot, pero solo aquellas que tengan frecuencia > 1.
+        # del vector OneHot, pero solo aquellas que tengan frecuencia > 1 y frecuencia menor
+        # a la cantidad total de documentos,    esto porque si una palabra está en todos los
+        # documentos, no sirve para clasificar.
         contador = 0
         for word in words_one_hot:
-            if(words_one_hot_count[contador] > 1):
+            if(words_one_hot_count[contador] > 1 and words_one_hot_count[contador] < cantidad_lineas):
                 new_words_one_hot.append(word)
                 archivo_salida.write(';' + str(word))
-            contador = contador + 1
+            contador += 1
     else:
         new_words_one_hot = words_one_hot
         for word in new_words_one_hot:

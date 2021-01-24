@@ -79,5 +79,12 @@ def lemmatization(word_list, dictionary=None):
                     new_word_list.append(lematizadoSpacy)
         return new_word_list
 
-def ner(word_list):
-    return word_list
+# Técnica NER, Named Entity Recognition, permite, en este proyecto, reconocer entidades
+# y reemplazarlas por un tag que indique a qué entidad hace referencia.    Por ejemplo, 
+# [municipalidad de santiago] -> [entidad_municipal].
+def ner(word_list, ner_dictionary):
+    words = ' '.join(word_list)
+    for word in ner_dictionary:
+        if(word in words):
+            words = words.replace(word, list(ner_dictionary[word])[0])
+    return words.split(' ')

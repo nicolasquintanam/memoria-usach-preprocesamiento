@@ -127,3 +127,20 @@ def obtener_numero_categoria_licitacion(categoria):
         return 4
     else:
         return 5 # Categoría Otros.
+
+
+# Crea un diccionario de Named Entity Recognition a partir de un archivo.
+def create_ner_dictionary(ner_dictionary, file_name):
+    with open(file_name, 'r', encoding='utf-8') as file:
+        lines = file.read()
+    lines = lines.replace('\ufeff','').split("\n")
+    for line in lines:
+        aux_list = line.split(' ## ')
+        if(len(aux_list) == 2):
+            word = aux_list[0]
+            replace = aux_list[1]
+            if word in ner_dictionary:
+                ner_dictionary[word]=replace
+            else:
+                ner_dictionary[word]={replace}
+    return ner_dictionary
