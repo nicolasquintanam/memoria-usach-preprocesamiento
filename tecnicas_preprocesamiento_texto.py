@@ -4,7 +4,6 @@ from nltk.util import ngrams
 from nltk import SnowballStemmer
 import es_core_news_sm
 
-
 # Técnica 'Tokenization' del Preprocesamiento de texto.  En simples palabras, transforma el 
 # el texto, que se da por parámetro, en un listado de palabras. Se obtiene de la biblioteca
 # NLTK (Natural Language Toolkit).
@@ -53,10 +52,10 @@ def ngram(word_list, n):
 # zar un diccionario que indique la palabra, el lema y el etiquetado gramatical.
 def lemmatization(word_list, dictionary=None):
     #Lematización sin información de Etiquetado Gramatical
+    new_word_list = []
     if(dictionary is None):
         nlp = es_core_news_sm.load()
         doc = nlp(' '.join(word_list))
-        new_word_list = []
         for word in doc:
             new_word_list.append(word.lemma_)
         return new_word_list
@@ -64,20 +63,20 @@ def lemmatization(word_list, dictionary=None):
     # si antes, se utiliza la técnica POS Tagging, y se indica por parámetro el di-
     # ccionario gramatical.
     else:
-        new_word_list = []
-        for word in word_list:
-            w = word[0]
-            pos = word[1]
+        for word_with_pos in word_list:
+            word = word_with_pos[0]
+            pos = word_with_pos[1]
             if(pos == 'PROPN'):
-                new_word_list.append(w)
+                new_word_list.append(word)
             else:
-                if w in dictionary:
-                    if pos in dictionary[w]:
-                        new_word_list.append(dictionary[w][pos])
+                if word in dictionary:
+                    if pos in dictionary[word]:
+                        new_word_list.append(dictionary[word][pos])
                     else:
-                        print('no está el ' + pos + ' del ' + w)
+                        new_word_list.append(dictionary[word][list(dictionary[word])[0]])
                 else:
-                    print('no está ' + w)
+                    lematizadoSpacy = lemmatization([word], None)[0]
+                    new_word_list.append(lematizadoSpacy)
         return new_word_list
 
 def ner(word_list):

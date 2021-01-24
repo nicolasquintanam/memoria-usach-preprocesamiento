@@ -1,11 +1,31 @@
 from tecnicas_preprocesamiento_texto import *
 from utilidades import *
+import pickle
 
-text = ''
+import os.path
+from os import path
+
+
+print("Creando diccionario de lematización")
 dictionary = {}
-dictionary = create_lemmatization_dictionary(dictionary, 'archivo/verbos.txt')
-dictionary = create_lemmatization_dictionary(dictionary, 'archivo/adjetivos.txt')
-dictionary = create_lemmatization_dictionary(dictionary, 'archivo/sustantivos.txt')
+if(path.exists("linguistic data/word_lemma_dict.pkl")):
+    with open('linguistic data/word_lemma_dict.pkl', 'rb') as f:
+        dictionary = pickle.load(f)
+else:
+    dictionary = create_lemmatization_dictionary(dictionary, 'linguistic data/verbos.txt')
+    dictionary = create_lemmatization_dictionary(dictionary, 'linguistic data/verbos-chile.txt')
+    dictionary = create_lemmatization_dictionary(dictionary, 'linguistic data/adjetivos.txt')
+    dictionary = create_lemmatization_dictionary(dictionary, 'linguistic data/adjetivos-chile.txt')
+    dictionary = create_lemmatization_dictionary(dictionary, 'linguistic data/sustantivos.txt')
+    dictionary = create_lemmatization_dictionary(dictionary, 'linguistic data/sustantivos-chile.txt')
+    dictionary = create_lemmatization_dictionary(dictionary, 'linguistic data/adverbios.txt')
+    dictionary = create_lemmatization_dictionary(dictionary, 'linguistic data/adverbios-chile.txt')
+    dictionary = create_lemmatization_dictionary(dictionary, 'linguistic data/interjecciones-chile.txt')
+    dictionary = create_lemmatization_dictionary(dictionary, 'linguistic data/gentilicios-chile.txt')
+    dictionary = create_lemmatization_dictionary(dictionary, 'linguistic data/otros.txt')
+    dictionary = create_lemmatization_dictionary(dictionary, 'linguistic data/otros-chile.txt')
+    pickle.dump(dictionary, open('linguistic data/word_lemma_dict.pkl','wb'))
+print("Diccionario de lematización creado!\n")
 
 def flujo_base(words):
     word_list = tokenization(words)
