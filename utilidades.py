@@ -116,17 +116,23 @@ def crear_listado_palabras_frecuencia_1(input):
         return listado_palabras_frecuencia_1
 
 # Obtiene el identificador de la categoría de la licitación.
-def obtener_numero_categoria_licitacion(categoria):
-    if(categoria == 'Construcción'):
+def obtener_numero_categoria_licitacion(categoria, category_dictionary):
+    category = ''
+    categoria = categoria.replace('  ', ' ').strip()
+    
+    if(categoria in category_dictionary):
+        category = category_dictionary[categoria]
+    if(category == 'Construcción'):
         return 1
-    if(categoria == 'Salud, farmacéutica y laboratorio'):
+    if(category == 'Salud, farmacéutica y laboratorio'):
         return 2
-    if(categoria == 'Servicios y equipamiento industrial'):
+    if(category == 'Servicios y equipamiento industrial'):
         return 3
-    if(categoria == 'Servicios administrativos, financieros y electrónica'):
+    if(category == 'Servicios administrativos, financieros y electrónica'):
         return 4
     else:
-        return 5 # Categoría Otros.
+        return 5 #Categoría Otros
+
 
 
 # Crea un diccionario de Named Entity Recognition a partir de un archivo.
@@ -144,3 +150,77 @@ def create_ner_dictionary(ner_dictionary, file_name):
             else:
                 ner_dictionary[word]={replace}
     return ner_dictionary
+
+# Permite crear un diccionario de categorías, en donde se indica la categoría
+# original y retorna la categoría definitiva, reduciendo así, las 56 categor-
+# ías a solo 5.
+def create_category_dictionary():
+    category_dictionary = {}
+
+    category = "Construcción"
+    category_dictionary["Artículos para estructuras obras y construcciones"] = category
+    category_dictionary["Maquinaria para construcción y edificación"] = category
+    category_dictionary["Servicios de construcción y mantenimiento"] = category
+
+    category = "Salud, farmacéutica y laboratorio"
+    category_dictionary["Equipamiento para laboratorios"] = category
+    category_dictionary["Equipamiento y suministros médicos"] = category
+    category_dictionary["Medicamentos y productos farmacéuticos"] = category
+    category_dictionary["Salud servicios sanitarios y alimentación"] = category
+
+    category = "Servicios y equipamiento industrial"
+    category_dictionary["Artículos de fabricación y producción"] = category
+    category_dictionary["Combustibles lubricantes y anticorrosivos"] = category
+    category_dictionary["Equipamiento para el acondicionamiento distribución y filtrado de fluidos"] = category
+    category_dictionary["Equipamiento para manejo y estiba de materiales"] = category
+    category_dictionary["Herramientas y maquinaria en general"] = category
+    category_dictionary["Maquinaria para fabricación y transformación industrial"] = category
+    category_dictionary["Maquinaria para minería y perforación"] = category
+    category_dictionary["Maquinarias equipos y suministros para la industria de servicios"] = category
+    category_dictionary["Productos químicos industriales"] = category
+    category_dictionary["Resinas cauchos espumas y elastómeros"] = category
+    category_dictionary["Servicios de limpieza industrial"] = category
+    category_dictionary["Servicios de perforación de minería petróleo y gas"] = category
+    category_dictionary["Servicios de producción y fabricación industrial"] = category
+    category_dictionary["Servicios de transporte almacenaje y correo"] = category
+    category_dictionary["Vehículos y equipamiento en general"] = category
+
+    category = "Servicios administrativos, financieros y electrónica"
+    category_dictionary["Consultoria"] = category
+    category_dictionary["Equipos accesorios y suministros de oficina"] = category
+    category_dictionary["Organizaciones y consultorías políticas demográficas económicas sociales y de administración pública"] = category
+    category_dictionary["Productos de papel"] = category
+    category_dictionary["Productos impresos y publicaciones"] = category
+    category_dictionary["Servicios financieros pensiones y seguros"] = category
+    category_dictionary["Servicios profesionales administrativos y consultorías de gestión empresarial"] = category
+    category_dictionary["Artículos de electrónica"] = category
+    category_dictionary["Artículos eléctricos y de iluminación"] = category
+    category_dictionary["Equipos y suministros de imprenta fotográficos y audiovisuales"] = category
+    category_dictionary["Maquinaria para generación y distribución de energía"] = category
+    category_dictionary["Muebles accesorios electrodomésticos y productos electrónicos"] = category
+    category_dictionary["Servicios basados en ingeniería ciencias sociales y tecnología de la información"] = category
+    category_dictionary["Servicios editoriales de diseño publicidad gráficos y artistas"] = category
+    category_dictionary["Tecnologías de la información telecomunicaciones y radiodifusión"] = category
+
+    category = "Otros"
+    category_dictionary["Alimentos bebidas y tabaco"] = category
+    category_dictionary["Artículos para plantas y animales"] = category
+    category_dictionary["Educación formación entrenamiento y capacitación"] = category
+    category_dictionary["Equipos suministros y accesorios deportivos y recreativos"] = category
+    category_dictionary["Equipos y suministros de defensa orden público protección y seguridad"] = category
+    category_dictionary["Equipos y suministros de limpieza"] = category
+    category_dictionary["Instrumentos musicales juegos juguetes artesanías y materiales educativos"] = category
+    category_dictionary["Maquinaria para agricultura pesca y silvicultura"] = category
+    category_dictionary["Muebles y mobiliario"] = category
+    category_dictionary["Organizaciones sociales laborales y clubes"] = category
+    category_dictionary["Productos derivados de minerales plantas y animales"] = category
+    category_dictionary["Productos para relojería joyería y gemas"] = category
+    category_dictionary["Ropa maletas y productos de aseo personal"] = category
+    category_dictionary["Servicios agrícolas pesqueros forestales y relacionados con la fauna"] = category
+    category_dictionary["Servicios básicos y de información pública"] = category
+    category_dictionary["Servicios de cuidado personal y domésticos"] = category
+    category_dictionary["Servicios de defensa nacional orden público y seguridad"] = category
+    category_dictionary["Servicios de Viajes alimentación alojamiento y entretenimiento"] = category
+    category_dictionary["Servicios medioambientales"] = category
+
+    return category_dictionary

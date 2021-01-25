@@ -9,6 +9,7 @@ def one_hot(corpus, preprocessing_function, words_frequency_1):
     words_one_hot_count = []        # Cantidad de veces que se repite las palabras del vector OneHot
     licitaciones_id = []            # Listado de los ID's de las licitaciones
     categorias_licitaciones = []    # Listado de categorías de las licitaciones
+    category_dictionary = create_category_dictionary()
 
     cantidad_lineas = 0
     for linea in archivo:
@@ -71,7 +72,7 @@ def one_hot(corpus, preprocessing_function, words_frequency_1):
                 archivo_salida.write(';1')
             else:
                 archivo_salida.write(';0')
-        archivo_salida.write(';' + str(obtener_numero_categoria_licitacion(categorias_licitaciones[i])))
+        archivo_salida.write(';' + str(obtener_numero_categoria_licitacion(categorias_licitaciones[i], category_dictionary)))
         archivo_salida.write('\n')
         i = i + 1
     archivo_salida.close()
