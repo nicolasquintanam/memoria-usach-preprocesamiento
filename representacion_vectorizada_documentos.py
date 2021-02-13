@@ -245,7 +245,6 @@ def funcionnn2(texto, listado_palabras):
     one_hot = ''
     print('hola')
     for palabra in listado_palabras:
-        i = i +1 
         if(palabra in texto):
             one_hot = one_hot + ';1'
         else:
