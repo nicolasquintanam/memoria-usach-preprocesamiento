@@ -128,7 +128,7 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
     lineas = archivo.readlines()
     #Se preprocesa el corpus utilizando paralelización
     
-    pool = multiprocessing.Pool(processes=6)
+    pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
     prod_x=partial(funcion, preprocesing_function=preprocesing_fun, wf_1=words_frequency_1, tiene_bigram=tiene_bigrama) # prod_x has only one argument x (y is fixed to 10)
     resultado = pool.map(prod_x, lineas)
 
@@ -189,7 +189,7 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
     tiempo_total_por_documento = 0
 
     
-    pool = multiprocessing.Pool(processes=6)
+    pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
     prod_y=partial(funcionnn2, listado_palabras=new_words_one_hot) # prod_x has only one argument x (y is fixed to 10)
     hola = pool.map(prod_y, textos_preprocesados)
 
@@ -243,9 +243,8 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
 
 def funcionnn2(texto, listado_palabras):
     one_hot = ''
-    i = 0
+    print('hola')
     for palabra in listado_palabras:
-        print(i)
         i = i +1 
         if(palabra in texto):
             one_hot = one_hot + ';1'
