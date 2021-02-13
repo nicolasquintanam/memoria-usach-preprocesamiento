@@ -102,7 +102,6 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
             archivo_salida.write(str(listado_id_licitaciones[i+j]))
             archivo_salida.write(';')
             archivo_salida.write(';'.join(hola[i]))
-            print(hola[i])
             archivo_salida.write(';' + categorias_licitaciones[i+j])
             archivo_salida.write('\n')
 
