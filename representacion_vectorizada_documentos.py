@@ -82,11 +82,14 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
     tokens_total_despues_preprocesamiento = 0
     tiempo_total_por_documento = 0
 
+    print('antes es: ' + str(len(list_textos_preprocesado)))
     lt_preprocesados = separarListaListas(list_textos_preprocesado, 1000)
+    print('después es: ' + str(len(lt_preprocesados)))
     j = 0
 
-    hola = []
+    
     for grupo in lt_preprocesados:
+        hola = []
         print(grupo)
         pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
         prod_y=partial(funcionnn2, listado_palabras=new_words_one_hot) # prod_x has only one argument x (y is fixed to 10)
