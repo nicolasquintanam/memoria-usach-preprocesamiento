@@ -196,7 +196,8 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
     for i in range(cantidad_documentos_corpus):
         print(i)
         archivo_salida.write(str(listado_id_licitaciones[i]))
-        archivo_salida.write(hola[i])
+        archivo_salida.write(';')
+        archivo_salida.write(';'.join(hola[i]))
         archivo_salida.write(';' + categorias_licitaciones[i])
         archivo_salida.write('\n')
 
@@ -242,13 +243,14 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
     archivo.close()'''
 
 def funcionnn2(texto, listado_palabras):
-    one_hot = ''
-    print('hola')
+    one_hot = []
+    
     for palabra in listado_palabras:
         if(palabra in texto):
-            one_hot = one_hot + ';1'
+            one_hot.append('1')
         else:
-            one_hot = one_hot + ';0'
+            one_hot.append('0')
+    print(len(one_hot))
     return one_hot
 
 def funcion(linea, preprocesing_function, wf_1, tiene_bigram):
