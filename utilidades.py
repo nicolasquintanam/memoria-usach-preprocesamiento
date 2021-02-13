@@ -261,3 +261,9 @@ def list_to_bigram(lista):
     for i in range(0, len(lista), 2):
         bigram.append(tuple(lista[i:i+2]))
     return bigram
+
+def separarListaListas(lista, n):
+    new_lista = []
+    for i in range(0, len(lista), n):
+        new_lista.append(lista[i:i+n])
+    return new_lista
