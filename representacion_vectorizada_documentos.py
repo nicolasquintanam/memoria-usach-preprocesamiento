@@ -90,7 +90,7 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
         prod_y=partial(funcionnn2, listado_palabras=new_words_one_hot) # prod_x has only one argument x (y is fixed to 10)
         hola = pool.map(prod_y, grupo)
 
-        for i in range(cantidad_documentos_corpus):
+        for i in range(0, cantidad_documentos_corpus):
             archivo_salida.write(str(listado_id_licitaciones[i+j]))
             archivo_salida.write(';')
             archivo_salida.write(';'.join(hola[i]))
