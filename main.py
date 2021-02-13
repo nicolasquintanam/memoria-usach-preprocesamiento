@@ -3,7 +3,7 @@ from flujos_experimentales import *
 from time import time
 
 
-input = 'input files/corpus.txt'
+input = 'input files/corpus10000.txt'
 
 print("creando listado de palabras con frecuencia 1")
 words_frequency_1 = crear_listado_palabras_frecuencia_1(input)
