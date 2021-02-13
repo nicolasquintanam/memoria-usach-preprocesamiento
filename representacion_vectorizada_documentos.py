@@ -96,10 +96,10 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
         hola = pool.map(prod_y, grupo)
 
 
-        for i in range(0, cantidad_documentos_corpus):
+        for i in range(0, len(hola)):
             archivo_salida.write(str(listado_id_licitaciones[i+j]))
             archivo_salida.write(';')
-            archivo_salida.write(';'.join(hola[k]))
+            archivo_salida.write(';'.join(hola[i]))
             archivo_salida.write(';' + categorias_licitaciones[i+j])
             archivo_salida.write('\n')
 
