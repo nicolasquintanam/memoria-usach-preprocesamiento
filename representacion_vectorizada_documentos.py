@@ -100,12 +100,13 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
             archivo_salida.write(str(listado_id_licitaciones[i+j]))
             archivo_salida.write(';')
             archivo_salida.write(';'.join(hola[i]))
+            print(hola[i])
             archivo_salida.write(';' + categorias_licitaciones[i+j])
             archivo_salida.write('\n')
 
-            tiempo_total_por_documento += float(tiempos_documento[i])
-            tokens_total_antes_preprocesamiento += int(tokens_antes_preprocesamiento[i])
-            tokens_total_despues_preprocesamiento += int(tokens_despues_preprocesamiento[i])
+            tiempo_total_por_documento += float(tiempos_documento[i+j])
+            tokens_total_antes_preprocesamiento += int(tokens_antes_preprocesamiento[i+j])
+            tokens_total_despues_preprocesamiento += int(tokens_despues_preprocesamiento[i+j])
         j = j + 1000
         k = k + 1
         print(j)
