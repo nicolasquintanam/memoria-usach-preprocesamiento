@@ -1,5 +1,10 @@
 from io import open
 import re
+from time import time
+import pandas as pd
+import numpy as np
+import multiprocessing
+from joblib import Parallel, delayed
 
 # Permite crear un diccionario para la lematización. Este diccionario contiene información
 # de la palabra, su forma gramatical y su lema.   Por lo tanto, por parámetro se le indica
@@ -47,11 +52,10 @@ def create_lemmatization_dictionary(lemmatization_dictionary, file_name):
 # tos, comas y puntuaciones en general,  eliminar números y eliminar palabras que contienen 
 # solo una letra.
 def standardize(words, listado_palabras_frecuencia_1):
-    words = to_lowercase(words)
-    words = remove_punctuation(words)
-    words = remove_number(words)
-    words = remove_one_character_words(words)
-    
+    #words = to_lowercase(words)
+    #words = remove_punctuation(words)
+    #words = remove_number(words)
+    #words = remove_one_character_words(words)
     # Si viene vacío el listado de palabras con frecuencia 1, no considerar.
     if(listado_palabras_frecuencia_1 == []):
         return words
@@ -88,9 +92,7 @@ def crear_listado_palabras_frecuencia_1(input):
                                         # linea = "ID-123####Este es un texto."
         linea = linea.split('####')     # linea = ["ID-123", "Este es un texto."]
         linea = linea[1]                # linea = "Este es un texto."
-        linea = standardize(linea, [])  # linea = "este es un texto"
         linea = linea.split(' ')        # linea = ["este", "es", "un", "texto"]
-
         # almacenar lo mismo que en 'linea' pero sin palabras repetidas
         new_linea = []      
         for palabra in linea:
@@ -133,7 +135,12 @@ def obtener_numero_categoria_licitacion(categoria, category_dictionary):
     else:
         return 5 #Categoría Otros
 
-
+def eliminar_repetidos(listado):
+    nuevo_listado = []
+    for elemento in listado:
+        if(elemento not in nuevo_listado):
+            nuevo_listado.append(elemento)
+    return nuevo_listado
 
 # Crea un diccionario de Named Entity Recognition a partir de un archivo.
 def create_ner_dictionary(ner_dictionary, file_name):
@@ -224,3 +231,33 @@ def create_category_dictionary():
     category_dictionary["Servicios medioambientales"] = category
 
     return category_dictionary
+
+def transformNERLabel(tag):
+    if(tag == 'PERSON'):
+        return 'persona'
+    if(tag == 'NORP'):
+        return 'entidad'
+    if(tag == 'FAC' or tag == 'GPE' or tag == 'LOC'):
+        return 'lugar'
+    if(tag=='LANGUAGE'):
+        return 'lenguaje'
+    if(tag=='DATE'):
+        return 'fecha'
+    if(tag == 'TIME'):
+        return 'hora'
+    if(tag == 'ORG'):
+        return 'organización'
+    return tag
+
+def bigram_to_list(bigram):
+    lista = []
+    for element in bigram:
+        lista.append(element[0])
+        lista.append(element[1])
+    return lista
+
+def list_to_bigram(lista):
+    bigram = []
+    for i in range(0, len(lista), 2):
+        bigram.append(tuple(lista[i:i+2]))
+    return bigram

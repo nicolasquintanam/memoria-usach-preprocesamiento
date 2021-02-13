@@ -1,0 +1,36 @@
+La data se está obteniendo del repositorio, en GitHub, de Freeling.
+
+-------------------- Español general ------------------------------
+Freeling/data/es/dictionary/entries
+
+adjetivos.txt = MM.adj && CL.adj = Comienzan con A los adjetivos
+sustantivos.txt = MM.nom && CL.nom = Comienza con N los sustantivos
+adverbios.txt = MM.adv && CL.adv = Comienza con R los adverbios
+verbos.txt = MM.verb && MM.vaux && CL.verb && CL.vaux = Comienzan con V
+interjecciones.txt = CL.int
+
+otros.txt = MM.tanc 
+- Comienza en C las conjunciones
+- Comienza en D los determinantes
+- Comienza con P los pronombres
+- Comienza con S las adposiciones
+- Comienza con D los 'date'
+
+
+-------------------- Español chileno ------------------------------
+
+
+TODO:
+- Eliminar licitaciones que tienen descripción "según bases" solamente, ya que no entregan información. Además hay que modificar la memoria para indicar eso.
+[Se eliminan las licitaciones que sin considerar las palabras 'según bases', 'de acuerdo a las bases', etc] tienen menos de 6 palabras.]
+
+- Eliminar las palabras del dataset que está en todos los documentos. [Listo]
+
+- Eliminar las licitaciones que tienen más de un items. [Eliminarlas, no considerar solo el primer item porque en el corpus está incluido el nombre de la licitación y la descripción por lo tanto, ese nombre y esa descripción puede estar haciendo referencia a todos los items en general. Además de las 32585 válidas, son solo 32 registros]
+
+- Named entity recognition Crear diccionario
+
+
+- Que cuando se obtenga la inforamación relevante, se obtenga la categoría general. [Listo]
+
+- En el script de preprocesamiento, indicar a qué licitación hace referencia. [Listo]
