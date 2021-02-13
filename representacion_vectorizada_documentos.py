@@ -87,9 +87,11 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
 
     hola = []
     for grupo in lt_preprocesados:
+        print(grupo)
         pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
         prod_y=partial(funcionnn2, listado_palabras=new_words_one_hot) # prod_x has only one argument x (y is fixed to 10)
         hola = pool.map(prod_y, grupo)
+
 
         for i in range(0, cantidad_documentos_corpus):
             archivo_salida.write(str(listado_id_licitaciones[i+j]))
