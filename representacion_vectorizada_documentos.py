@@ -160,13 +160,11 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
 
 def funcionnn2(texto, listado_palabras):
     one_hot = []
-    
     for palabra in listado_palabras:
         if(palabra in texto):
             one_hot.append('1')
         else:
             one_hot.append('0')
-    print(len(one_hot))
     return one_hot
 
 def funcion(linea, preprocesing_function, wf_1, tiene_bigram):
