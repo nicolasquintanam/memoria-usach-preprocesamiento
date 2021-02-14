@@ -100,7 +100,7 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
         for i in range(0, len(hola)):
             archivo_salida = open('output files/dataset.csv', 'a')
             print(i)
-            print(i+j
+            print(i+j)
             archivo_salida.write(str(listado_id_licitaciones[i+j]))
             archivo_salida.write(';')
             archivo_salida.write(';'.join(hola[i]))
