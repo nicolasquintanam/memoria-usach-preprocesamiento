@@ -82,7 +82,7 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
     tokens_total_despues_preprocesamiento = 0
     tiempo_total_por_documento = 0
 
-    
+    '''
     print('antes es: ' + str(len(list_textos_preprocesado)))
     lt_preprocesados = separarListaListas(list_textos_preprocesado, 1000)
     print('después es: ' + str(len(lt_preprocesados)))
@@ -133,7 +133,7 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
         tiempo_total_por_documento += float(tiempos_documento[i])
         tokens_total_antes_preprocesamiento += int(tokens_antes_preprocesamiento[i])
         tokens_total_despues_preprocesamiento += int(tokens_despues_preprocesamiento[i])
-'''
+
     archivo_resumen.write('En promedio la cantidad de tokens antes del preprocesamiento: ' + str(tokens_total_antes_preprocesamiento/len(tokens_antes_preprocesamiento)) + '\n')
     archivo_resumen.write('En promedio la cantidad de tokens después del preprocesamiento: ' + str(tokens_total_despues_preprocesamiento/len(tokens_despues_preprocesamiento)) + '\n')
     archivo_resumen.write('El tiempo promedio que tardó cada documento es: ' + str(tiempo_total_por_documento/len(tiempos_documento)) + ' segundos\n')
