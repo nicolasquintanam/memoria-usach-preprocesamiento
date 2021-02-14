@@ -82,6 +82,7 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
     tokens_total_despues_preprocesamiento = 0
     tiempo_total_por_documento = 0
 
+    
     print('antes es: ' + str(len(list_textos_preprocesado)))
     lt_preprocesados = separarListaListas(list_textos_preprocesado, 1000)
     print('después es: ' + str(len(lt_preprocesados)))
@@ -113,7 +114,7 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
             archivo_salida.close()
         j = j + 1000
         k = k + 1
-        
+     
         
 
     '''
