@@ -98,7 +98,7 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
 
         for i in range(0, len(hola)):
             print(i)
-            print(i+j)
+            print(i+j
             archivo_salida.write(str(listado_id_licitaciones[i+j]))
             archivo_salida.write(';')
             archivo_salida.write(';'.join(hola[i]))
@@ -110,9 +110,8 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
             tokens_total_despues_preprocesamiento += int(tokens_despues_preprocesamiento[i+j])
         j = j + 1000
         k = k + 1
-        print(j)
-
-
+        archivo_salida.close()
+        archivo_salida = open('output files/dataset.csv', 'a')
 
     '''
     pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
