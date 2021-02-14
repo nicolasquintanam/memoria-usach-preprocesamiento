@@ -44,10 +44,16 @@ def flujo_experimental_1(words):
     return word_list
 
 def flujo_experimental_2(words):
+    print('\n\n\n')
     word_list = tokenization(words)
+    print(word_list)
     word_list = remove_stopwords(word_list)
+    print(word_list)
     word_list = pos_tagging(word_list)
+    print(word_list)
     word_list = lemmatization(word_list, lemmatization_dictionary)
+    print(word_list)
+    print('\n\n\n')
     return word_list
 
 def flujo_experimental_3(words):
