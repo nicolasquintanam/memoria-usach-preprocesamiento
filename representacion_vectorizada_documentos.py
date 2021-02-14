@@ -143,33 +143,7 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_fun, words_frequency_
     archivo_resumen.close()
     archivo_salida.close()
     archivo.close()
-    
 
-    '''
-    for i in range(cantidad_documentos_corpus):
-        print(i)
-        archivo_salida.write(str(listado_id_licitaciones[i]))
-        for word in new_words_one_hot:
-            if(word in textos_preprocesados[i]):
-                archivo_salida.write(';1')
-            else:
-                archivo_salida.write(';0')
-        archivo_salida.write(';' + categorias_licitaciones[i])
-        archivo_salida.write('\n')
-
-        tiempo_total_por_documento += float(tiempos_documento[i])
-        tokens_total_antes_preprocesamiento += int(tokens_antes_preprocesamiento[i])
-        tokens_total_despues_preprocesamiento += int(tokens_despues_preprocesamiento[i])
-
-    archivo_resumen.write('En promedio la cantidad de tokens antes del preprocesamiento: ' + str(tokens_total_antes_preprocesamiento/len(tokens_antes_preprocesamiento)) + '\n')
-    archivo_resumen.write('En promedio la cantidad de tokens después del preprocesamiento: ' + str(tokens_total_despues_preprocesamiento/len(tokens_despues_preprocesamiento)) + '\n')
-    archivo_resumen.write('El tiempo promedio que tardó cada documento es: ' + str(tiempo_total_por_documento/len(tiempos_documento)) + ' segundos\n')
-    elapsed_time_complete = time() - start_time_complete
-    archivo_resumen.write('El tiempo que tardó el proceso completo es: ' + str(elapsed_time_complete) + ' segundos\n')
-
-    archivo_resumen.close()
-    archivo_salida.close()
-    archivo.close()'''
 
 def funcionnn2(texto, listado_palabras):
     one_hot = []
