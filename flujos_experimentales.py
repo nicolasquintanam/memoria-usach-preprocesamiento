@@ -44,16 +44,10 @@ def flujo_experimental_1(words):
     return word_list
 
 def flujo_experimental_2(words):
-    print('\n\n\n')
     word_list = tokenization(words)
-    print(word_list)
     word_list = remove_stopwords(word_list)
-    print(word_list)
     word_list = pos_tagging(word_list)
-    print(word_list)
     word_list = lemmatization(word_list, lemmatization_dictionary)
-    print(word_list)
-    print('\n\n\n')
     return word_list
 
 def flujo_experimental_3(words):
@@ -66,91 +60,56 @@ def flujo_experimental_3(words):
 
 def flujo_experimental_4(words):
     word_list = tokenization(words)
-    print(word_list)
     word_list = remove_stopwords(word_list)
-    print(word_list)
     word_list = ner(word_list, ner_dictionary)
-    print(word_list)
     word_list = stemming(word_list)
-    print(word_list)
     word_list = ngram(word_list, 2)
-    print(word_list)
     return word_list
 
 def flujo_experimental_5(words):
     word_list = tokenization(words)
-    print(word_list)
     word_list = remove_stopwords(word_list)
-    print(word_list)
     word_list = ner(word_list, ner_dictionary)
-    print(word_list)
     word_list = pos_tagging(word_list)
-    print(word_list)
     word_list = lemmatization(word_list, lemmatization_dictionary)
-    print(word_list)
     return word_list
 
 def flujo_experimental_6(words):
     word_list = tokenization(words)
-    print(word_list)
     word_list = remove_stopwords(word_list)
-    print(word_list)
     word_list = ner(word_list, ner_dictionary)
-    print(word_list)
     word_list = pos_tagging(word_list)
-    print(word_list)
     word_list = lemmatization(word_list, lemmatization_dictionary)
-    print(word_list)
     word_list = ngram(word_list, 2)
-    print(word_list)
     return word_list
 
 def flujo_experimental_7(words):
     word_list = tokenization(words)
-    print(word_list)
     word_list = ner(word_list, ner_dictionary)
-    print(word_list)
     word_list = remove_stopwords(word_list)
-    print(word_list)
     word_list = stemming(word_list)
-    print(word_list)
     return word_list
 
 def flujo_experimental_8(words):
     word_list = tokenization(words)
-    print(word_list)
     word_list = ner(word_list, ner_dictionary)
-    print(word_list)
     word_list = remove_stopwords(word_list)
-    print(word_list)
     word_list = lemmatization(word_list)
-    print(word_list)
     return word_list
 
 def flujo_experimental_9(words):
     word_list = tokenization(words)
-    print(word_list)
     word_list = ner(word_list, ner_dictionary)
-    print(word_list)
     word_list = remove_stopwords(word_list)
-    print(word_list)
     word_list = pos_tagging(word_list)
-    print(word_list)
     word_list = lemmatization(word_list, lemmatization_dictionary)
-    print(word_list)
     return word_list
 
 def flujo_experimental_10(words):
     word_list = tokenization(words)
-    print(word_list)
     word_list = ner(word_list, ner_dictionary)
-    print(word_list)
     word_list = remove_stopwords(word_list)
-    print(word_list)
     word_list = pos_tagging(word_list)
-    print(word_list)
     word_list = lemmatization(word_list, lemmatization_dictionary)
-    print(word_list)
     word_list = ngram(word_list, 2)
-    print(word_list)
     return word_list

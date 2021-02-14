@@ -3,7 +3,7 @@ from nltk.corpus import stopwords
 from nltk.util import ngrams
 from nltk import SnowballStemmer
 from utilidades import *
-import es_core_news_sm
+import es_core_news_md
 
 # Técnica 'Tokenization' del Preprocesamiento de texto.  En simples palabras, transforma el 
 # el texto, que se da por parámetro, en un listado de palabras. Se obtiene de la biblioteca
@@ -32,7 +32,7 @@ def stemming(word_list):
 # fosintáctica, es decir, su categoría gramatical.  Si la palabra es un verbo, adverbio, sustan-
 # tivo, etc.
 def pos_tagging(word_list):
-    nlp = es_core_news_sm.load()
+    nlp = es_core_news_md.load()
     doc = nlp(' '.join(word_list))
     new_word_list = []
     for word in doc:
@@ -55,7 +55,7 @@ def lemmatization(word_list, dictionary=None):
     #Lematización sin información de Etiquetado Gramatical
     new_word_list = []
     if(dictionary is None):
-        nlp = es_core_news_sm.load()
+        nlp = es_core_news_md.load()
         doc = nlp(' '.join(word_list))
         for word in doc:
             new_word_list.append(word.lemma_)
@@ -89,7 +89,7 @@ def ner(word_list, ner_dictionary):
         if(word in words):
             words = words.replace(word, list(ner_dictionary[word])[0])
 
-    nlp = es_core_news_sm.load()
+    nlp = es_core_news_md.load()
     doc=nlp(words)
     for ent in doc.ents:
         label_transformado = transformNERLabel(ent.label_)
