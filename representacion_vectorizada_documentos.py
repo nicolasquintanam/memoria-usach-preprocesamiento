@@ -56,7 +56,7 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_function, words_frequ
         tokens_total_despues_preprocesamiento += int(listado[4])        # [4] Cantidad de tokens después del preprocesamiento
         tiempo_total_por_documento += float(listado[5])                 # [5] Tiempo en que demoró en preprocesar el texto
         i = i + 1
-        #print(i)
+        print(i)
     
     # Se crea el listado de palabras que contiene el vector one hot. Primero que todo, 
     # del listado de textos preprocesados  se transforma en un simple listado de todas
