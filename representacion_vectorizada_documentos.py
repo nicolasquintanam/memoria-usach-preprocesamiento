@@ -2,10 +2,14 @@ from utilidades import *
 from flujos_experimentales import *
 from functools import partial
 from itertools import chain
+import os
 
 def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_function, words_frequency_1, output_folder):
     start_time_complete = time()
     corpus_file = open(corpus, 'r')
+
+    if not os.path.exists('output files'):
+        os.makedirs('output files')
 
     dataset_file = open('output files/' + output_folder + '_dataset.csv', 'w')                    ## Archivo CSV que contiene el dataset puro
     abstract_file = open('output files/' + output_folder + '_abstract.txt', 'w')                  ## Archivo que indica un resumen del flujo (tiempos, cant de columnas, etc)
