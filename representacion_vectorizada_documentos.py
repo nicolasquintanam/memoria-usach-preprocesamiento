@@ -86,7 +86,7 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_function, words_frequ
 
     # Se escribe en un archivo todas las palabras del vector one hot.
     if(tiene_bigrama):
-        one_hot_words_file.write('\n'.join(new_list = map(str, words_one_hot)))
+        one_hot_words_file.write('\n'.join(map(str, words_one_hot)))
     else:
         one_hot_words_file.write('\n'.join(words_one_hot))
 
