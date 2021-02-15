@@ -66,6 +66,7 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_function, words_frequ
     
     # -------    One Hot Encoding del CSV   ------------
 
+    j = 0
     listado_grupos_preprocesados = separarListaListas(textos_preprocesados, 1000)
     for grupo in listado_grupos_preprocesados:
         pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
@@ -73,6 +74,8 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_function, words_frequ
         resultado = pool.map(one_hot_encoding, grupo)
 
         for i in range(0, len(resultado)):
+            j = j +1
+            print(j)
             dataset_file.write(';'.join(resultado[i]))
             dataset_file.write('\n')
     elapsed_time_complete = time() - start_time_complete 
