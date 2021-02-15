@@ -1,5 +1,0 @@
-La cantidad de palabras en el vector es: 1607
-En promedio la cantidad de tokens antes del preprocesamiento: 42.531531531531535
-En promedio la cantidad de tokens después del preprocesamiento: 23.45945945945946
-El tiempo promedio que tardó cada documento es: 0.01827427431627795 segundos
-El tiempo que tardó el proceso completo es: 10.386791229248047 segundos

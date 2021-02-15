@@ -3,25 +3,27 @@ from flujos_experimentales import *
 from functools import partial
 from itertools import chain
 
-def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_function, words_frequency_1):
+def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_function, words_frequency_1, output_folder):
     start_time_complete = time()
     corpus_file = open(corpus, 'r')
 
-    dataset_file = open('output files/dataset.csv', 'w')            ## Archivo CSV que contiene el dataset puro
-    abstract_file = open('output files/abstract.txt', 'w')          ## Archivo que indica un resumen del flujo (tiempos, cant de columnas, etc)
-    one_hot_words = open('output files/one-hot-words.txt', 'w')     ## Archivo con las columnas del dataset
-    tenders_id = open('output files/tenders-id.txt', 'w')           ## Archivo con los ID de las licitaciones
+    dataset_file = open('output files/' + output_folder + '_dataset.csv', 'w')                    ## Archivo CSV que contiene el dataset puro
+    abstract_file = open('output files/' + output_folder + '_abstract.txt', 'w')                  ## Archivo que indica un resumen del flujo (tiempos, cant de columnas, etc)
+    one_hot_words_file = open('output files/' + output_folder + '_one-hot-words.txt', 'w')        ## Archivo con las columnas del dataset
+    tenders_id_file = open('output files/' + output_folder + '_tenders-id.txt', 'w')              ## Archivo con los ID de las licitaciones
+    tenders_category_file = open('output files/' + output_folder + '_tenders-category.txt', 'w')  ## Archivo con las categorías de las licitaciones
     
 
     textos_preprocesados = []               ## Listado de todos los textos preprocesados
     listado_id_licitaciones = []                ## ID's de las licitaciones
     categorias_licitaciones = []                ## Categoría de las licitaciones
     words_one_hot = []                          ## Palabras del Vector One-Hot
-    tiempos_documento = []                      ## Listado de los tiempos que demora cada texto en ser preprocesado
-    tokens_antes_preprocesamiento = []          ## Cantidad de tokens antes del preprocesamiento
-    tokens_despues_preprocesamiento = []        ## Cantidad de tokens después del preprocesamiento
     lineas = corpus_file.readlines()            ## Listado de todas las lineas del corpus
+    tokens_total_antes_preprocesamiento = 0     ## Sumatoria de todos los tokens antes del preprocesamiento
+    tokens_total_despues_preprocesamiento = 0   ## Sumatoria de todos los tokens después del preprocesamiento
+    tiempo_total_por_documento = 0              ## Sumatoria de todos los tiempos unitarios por documento
     cantidad_documentos_corpus = len(lineas)    ## Cantidad de documentos en el corpus
+
     
     ## Se preprocesa cada documento, es decir, cada linea en la variable
     ## 'lineas', utilizando paralelismo. 
@@ -39,84 +41,64 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_function, words_frequ
     i = 0
     for texto in resultado:
         listado = texto.split('####') 
-        
-        listado_id_licitaciones.append(listado[0])
-        texto_preprocesado = listado[1]
-        if(tiene_bigrama):
-            texto_preprocesado = list_to_bigram(texto_preprocesado.split(' '))
-        
-        categorias_licitaciones.append(listado[2])
-        tokens_antes_preprocesamiento.append(listado[3])
-        tokens_despues_preprocesamiento.append(listado[4])
-        tiempos_documento.append(listado[5])
 
-        if(type(texto_preprocesado) != list):
-            texto_preprocesado = texto_preprocesado.split(' ')
-        textos_preprocesados.append(texto_preprocesado)
+        listado_id_licitaciones.append(listado[0])                      # [0] ID de la licitación
+        texto_preprocesado = listado[1].split(' ')                      # [1] --------------------------------
+        if(tiene_bigrama):                                              # ------------  Texto ----------------
+            texto_preprocesado = list_to_bigram(texto_preprocesado)     # ---------- preprocesado ------------
+        textos_preprocesados.append(texto_preprocesado)                 # ------------------------------------
+        categorias_licitaciones.append(listado[2])                      # [2] Categoría de la licitación
+        tokens_total_antes_preprocesamiento += int(listado[3])          # [3] Cantidad de tokens antes del preprocesamiento
+        tokens_total_despues_preprocesamiento += int(listado[4])        # [4] Cantidad de tokens después del preprocesamiento
+        tiempo_total_por_documento += float(listado[5])                 # [5] Tiempo en que demoró en preprocesar el texto
         i = i + 1
-        print(i)
+        #print(i)
     
+    # Se crea el listado de palabras que contiene el vector one hot. Primero que todo, 
+    # del listado de textos preprocesados  se transforma en un simple listado de todas
+    # las palabras preprocesadas con  list(chain.from_iterable(textos_preprocesados)), 
+    # luego con list(set()) se eliminan las palabras repetidas y finalmente se ordenan
     words_one_hot = sorted(list(set(list(chain.from_iterable(textos_preprocesados)))))
-        
-    # Se crea una nueva variable de palabras del vector OneHot que almacene las palabras 
-    # del vector OneHot, pero solo aquellas que tengan frecuencia > 1 y frecuencia menor
-    # a la cantidad total de documentos,    esto porque si una palabra está en todos los
-    # documentos, no sirve para clasificar.
-    ##ESte quizś se puede optimizar solamente escribiendo y no linea por linea.
-    new_words_one_hot = []
-    for i in range(len(words_one_hot)):
-        new_words_one_hot.append(words_one_hot[i])
-        dataset_file.write(';' + str(words_one_hot[i]))            
-        
-    dataset_file.write(';licitacion_categoria')
-    dataset_file.write('\n')
-    #Con esto ya se encuentra listo el header del CSV
-    #   | word1 | word2 | word3 | word4 | ...... | wordn | licitacion_categoria
-    abstract_file.write('La cantidad de palabras en el vector es: ' + str(len(new_words_one_hot)) + '\n')
-
-
-    tokens_total_antes_preprocesamiento = 0
-    tokens_total_despues_preprocesamiento = 0
-    tiempo_total_por_documento = 0
-
-    print('antes es: ' + str(len(textos_preprocesados)))
-    lt_preprocesados = separarListaListas(textos_preprocesados, 1000)
-    print('después es: ' + str(len(lt_preprocesados)))
-    j = 0
-    for grupo in lt_preprocesados:
-        
-        hola = []
-        pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
-        prod_y=partial(funcionnn2, listado_palabras=new_words_one_hot) # prod_x has only one argument x (y is fixed to 10)
-        hola = pool.map(prod_y, grupo)
-
-        for i in range(0, len(hola)):
-            print(i)
-            print(i+j)
-            dataset_file.write(str(listado_id_licitaciones[i+j]))
-            dataset_file.write(';')
-            dataset_file.write(';'.join(hola[i]))
-            dataset_file.write(';' + categorias_licitaciones[i+j])
-            dataset_file.write('\n')
-
-            tiempo_total_por_documento += float(tiempos_documento[i+j])
-            tokens_total_antes_preprocesamiento += int(tokens_antes_preprocesamiento[i+j])
-            tokens_total_despues_preprocesamiento += int(tokens_despues_preprocesamiento[i+j])
-        j = j + 1000
-     
     
-    abstract_file.write('En promedio la cantidad de tokens antes del preprocesamiento: ' + str(tokens_total_antes_preprocesamiento/len(tokens_antes_preprocesamiento)) + '\n')
-    abstract_file.write('En promedio la cantidad de tokens después del preprocesamiento: ' + str(tokens_total_despues_preprocesamiento/len(tokens_despues_preprocesamiento)) + '\n')
-    abstract_file.write('El tiempo promedio que tardó cada documento es: ' + str(tiempo_total_por_documento/len(tiempos_documento)) + ' segundos\n')
-    elapsed_time_complete = time() - start_time_complete
+    # -------    One Hot Encoding del CSV   ------------
+
+    listado_grupos_preprocesados = separarListaListas(textos_preprocesados, 1000)
+    for grupo in listado_grupos_preprocesados:
+        pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
+        one_hot_encoding = partial(one_hot_encoding_function, listado_palabras=words_one_hot) 
+        resultado = pool.map(one_hot_encoding, grupo)
+
+        for i in range(0, len(resultado)):
+            dataset_file.write(';'.join(resultado[i]))
+            dataset_file.write('\n')
+    elapsed_time_complete = time() - start_time_complete 
+
+    # Se escribe un resumen de lo obtenido con este flujo de preprocesamiento
+    abstract_file.write('La cantidad de palabras en el vector es: ' + str(len(words_one_hot)) + '\n')
+    abstract_file.write('En promedio la cantidad de tokens antes del preprocesamiento: ' + str(tokens_total_antes_preprocesamiento/cantidad_documentos_corpus) + '\n')
+    abstract_file.write('En promedio la cantidad de tokens después del preprocesamiento: ' + str(tokens_total_despues_preprocesamiento/cantidad_documentos_corpus) + '\n')
+    abstract_file.write('El tiempo promedio que tardó cada documento es: ' + str(tiempo_total_por_documento/cantidad_documentos_corpus) + ' segundos\n')
     abstract_file.write('El tiempo que tardó el proceso completo es: ' + str(elapsed_time_complete) + ' segundos\n')
 
+    # Se escribe en un archivo todas las palabras del vector one hot.
+    one_hot_words_file.write('\n'.join(words_one_hot))
+
+    # Se escribe en un archivo todas las licitaciones preprocesadas
+    tenders_id_file.write('\n'.join(listado_id_licitaciones))
+
+    # Se escribe en un archivo todas las categorías de las licitaciones preprocesadas
+    tenders_category_file.write('\n'.join(categorias_licitaciones))
+
     abstract_file.close()
+    one_hot_words_file.close()
+    tenders_id_file.close()
+    tenders_category_file.close()
     dataset_file.close()
     corpus_file.close()
+    
 
 
-def funcionnn2(texto, listado_palabras):
+def one_hot_encoding_function(texto, listado_palabras):
     one_hot = []
     for palabra in listado_palabras:
         if(palabra in texto):
