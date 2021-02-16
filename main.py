@@ -10,6 +10,6 @@ print("creando listado de palabras con frecuencia 1")
 words_frequency_1 = crear_listado_palabras_frecuencia_1(input)
 print("Ya se creó el listado")
 
-print("-- Comenzó preprocesamiento con flujo_experimental_8 --")
-one_hot_paralelize(input, False, flujo_experimental_8, words_frequency_1, 'flujo_exp_8')
+print("-- Comenzó preprocesamiento con flujo_experimental_9 --")
+one_hot_paralelize(input, False, flujo_experimental_9, words_frequency_1, 'flujo_exp_9')
 print("-- Finalizó preprocesamiento --")
