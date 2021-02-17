@@ -4,7 +4,7 @@ from time import time
 import csv
 
 
-input = 'input files/corpus100.txt'
+input = 'input files/corpus.txt'
 
 print("creando listado de palabras con frecuencia 1")
 words_frequency_1 = crear_listado_palabras_frecuencia_1(input)
