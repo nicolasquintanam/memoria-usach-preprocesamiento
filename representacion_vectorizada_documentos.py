@@ -121,11 +121,11 @@ def one_hot_encoding_function(texto, listado_palabras):
 
 def preprocesar_documento(linea, preprocesing_function, words_frequency_1, tiene_bigram):
     lista = linea.split('####')
-    print(1)
     cantidad_tokens_antes_preprocesamiento = len(lista[1].split(' '))
     start_time_for_each_document = time()
     preprocesado = preprocesing_function(standardize(lista[1], words_frequency_1))
     elapsed_time = time() - start_time_for_each_document
+    print(elapsed_time)
     cantidad_tokens_despues_preprocesamiento = len(preprocesado)
     if(lista[0] == '3890-106-L119'):
         print('-- Preprocesado 15,3% (5.000 licitaciones) ----')
