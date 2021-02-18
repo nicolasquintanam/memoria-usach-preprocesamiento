@@ -31,7 +31,7 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_function, words_frequ
     
     ## Se preprocesa cada documento, es decir, cada linea en la variable
     ## 'lineas', utilizando paralelismo. 
-    pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
+    pool = multiprocessing.Pool(processes=8)
     preprocesamiento_por_documento = partial(preprocesar_documento, preprocesing_function=preprocesing_function, words_frequency_1=words_frequency_1, tiene_bigram=tiene_bigrama) # prod_x has only one argument x (y is fixed to 10)
     resultado = pool.map(preprocesamiento_por_documento, lineas)
     pool.close()
@@ -69,7 +69,7 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_function, words_frequ
 
     j = 0
     listado_grupos_preprocesados = separarListaListas(textos_preprocesados, 1000)
-    pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
+    pool = multiprocessing.Pool(processes=8)
     for grupo in listado_grupos_preprocesados:
         one_hot_encoding = partial(one_hot_encoding_function, listado_palabras=words_one_hot) 
         resultado = pool.map(one_hot_encoding, grupo)
