@@ -34,6 +34,7 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_function, words_frequ
     pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
     preprocesamiento_por_documento = partial(preprocesar_documento, preprocesing_function=preprocesing_function, words_frequency_1=words_frequency_1, tiene_bigram=tiene_bigrama) # prod_x has only one argument x (y is fixed to 10)
     resultado = pool.map(preprocesamiento_por_documento, lineas)
+    pool.close()
     # La variable resultado, por cada texto trae lo siguiente separado por '####':
     #   -   [0] ID de la licitación
     #   -   [1] Texto preprocesado
@@ -78,7 +79,7 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_function, words_frequ
             print(j)
             dataset_file.write(';'.join(resultado[i]))
             dataset_file.write('\n')
-        pool.close()
+    pool.close()    
     elapsed_time_complete = time() - start_time_complete 
 
     # Se escribe un resumen de lo obtenido con este flujo de preprocesamiento
