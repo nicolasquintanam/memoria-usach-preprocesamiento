@@ -2,7 +2,7 @@ from time import time
 import csv
 import multiprocessing
 import sklearn
-
+import pandas as pd
 
 def datasetFromFile(lineaCSV):
     try:
@@ -24,6 +24,11 @@ elapsed_time = time() - start_time_category
 print('Categorias en listado')
 print(elapsed_time)
 
+df = pd.read_csv (input_dataset, header=None, delimiter=";", dtype=int)
+print('la cantidad de filas es ' + (str(len(df.index))))
+print(len(df.columns))
+print(df)
+'''
 start_time_dataset = time()
 f1 = open(input_dataset, 'r')
 lineas_dataset = f1.readlines()
@@ -49,3 +54,4 @@ print('entrenado')
 
 predictions = algoritmo.predict(X_test)
 print(predictions)
+'''
