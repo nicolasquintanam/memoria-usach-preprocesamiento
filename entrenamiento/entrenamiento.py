@@ -13,8 +13,8 @@ def datasetFromFile(lineaCSV):
         print(listado)
     return list_of_integers
 
-input_dataset = 'flujo_experimental_1_dataset.csv'
-input_category = 'flujo_experimental_1_tenders-category.txt'
+input_dataset = 'flujo_base_dataset.csv'
+input_category = 'flujo_base_tenders-category.txt'
 
 start_time_category = time()
 categories = []
@@ -25,16 +25,28 @@ print('Categorias en listado')
 print(elapsed_time)
 
 dataset = []
+arch = open(input_dataset, 'r')
+for linea in arch:
+    a = linea.replace('\n', '').split(';')
+    map_object = map(int, a)
+    list_of_integers = list(map_object)
+    dataset.append(list_of_integers)
+
+    print(len(dataset))
+print(dataset)
+
+'''
 df = pd.read_csv (input_dataset, header=None, chunksize=1, dtype='int8', delimiter=';')
 for d in df:
     for i in range(len(d)):
         dataset.append(d.values[i].tolist())
-    print(len(dataset))
-print(dataset)
+        #print(d.values[i].tolist())
+        print(d.reset_index().values[0].tolist())
+#print(dataset)
     
 
 
-'''
+
 start_time_dataset = time()
 f1 = open(input_dataset, 'r')
 lineas_dataset = f1.readlines()
