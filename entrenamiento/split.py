@@ -1,7 +1,7 @@
 #Este script es para dividir Entrenamiento, Validación y Test de cada dataset.
 
 nrows = 32529
-experimentation_name = 'flujo_experimental_3'
+experimentation_name = 'flujo_base'
 percent_train = 70
 percent_test = 20
 percent_validation = 10
@@ -74,6 +74,7 @@ print(str(count_class_5/32529*100)+ ' % - Clase 5 - ' + str(count_class_5) + ' d
 
 file_tenders_id = open(filename_tenders_id, 'r')
 ids = file_tenders_id.readlines()
+print(len(ids))
 categories = file_categories.readlines()
 for i in range(nrows):
   id = ids[i].replace('\n', '')  
@@ -179,14 +180,17 @@ lines_dataset_complete = file_dataset_complete.readlines()
 lines_tenders_id = file_tenders_id.readlines()
 for i in range(nrows):
   data = lines_dataset_complete[i]
-  data = data.replace('\n', '').replace(';', ',')
+  data = data.replace('\n', '')
   tender_id = lines_tenders_id[i].replace('\n', '')
   if(tender_id in tenders_id_train_group):
     file_dataset_train.write(data)
     file_categories_train.write(lines_categories_complete[i])
+    file_dataset_train.write('\n')
   if(tender_id in tenders_id_test_group):
     file_dataset_test.write(data)
     file_categories_test.write(lines_categories_complete[i])
+    file_dataset_test.write('\n')
   if(tender_id in tenders_id_validation_group):
     file_dataset_validation.write(data)
     file_categories_validation.write(lines_categories_complete[i])
+    file_categories_validation.write('\n')
