@@ -15,6 +15,7 @@ python3
 import nltk
 nltk.download('punkt')
 nltk.download('stopwords')
+exit()
 git clone https://github.com/nicolasquintanam/memoria-usach-preprocesamiento
 
 ```
