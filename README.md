@@ -81,7 +81,7 @@ pyhton3 split2.py --input flujo_experimental_5
 python3 entrenamiento.py --input flujo_experimental_5
 
 # ---- Flujo experimental 6 -----
-wget --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://drive.google.com/uc?export=download&id=IDDDDD' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=IDDDDD" -O flujo_experimental_6.zip && rm -rf /tmp/cookies.txt
+wget --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://drive.google.com/uc?export=download&id=1OjPPi_VGm72OpfrqCPDQUyOBajbE_Ymo' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1OjPPi_VGm72OpfrqCPDQUyOBajbE_Ymo" -O flujo_experimental_6.zip && rm -rf /tmp/cookies.txt
 unzip flujo_experimental_6.zip
 pyhton3 split2.py --input flujo_experimental_6
 python3 entrenamiento.py --input flujo_experimental_6
