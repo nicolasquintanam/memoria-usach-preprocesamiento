@@ -33,6 +33,9 @@ file_train_dataset = open(filename_train_dataset, 'r')
 file_train_categories = open(filename_train_categories, 'r')
 lineass = file_train_categories.readlines()
 i = 0
+
+xx = []
+yy = []
 for element in file_train_dataset:
     element = element.replace('\n', '').split(';')
     map_object = map(int, element)
@@ -42,9 +45,15 @@ for element in file_train_dataset:
     asdf.append(a)
     array = []
     array.append(X)
-    algoritmo.partial_fit(array, asdf, classes=np.unique([1,2,3,4,5]))
+    #xx.append(np.array(X))
+    #yy.append(a)
+    #print(np.array(asdf))
+    #print(np.array(array))
+    #print(np.unique([1,2,3,4,5]))
+    algoritmo.partial_fit(np.array(array), np.array(asdf), classes=np.unique([1,2,3,4,5]))
     i = i + 1
-    print(i)
+
+#algoritmo.fit(xx, yy)
 
 filename_test_dataset = flujo + '/out_' + flujo + '_1_dataset_validation.csv'
 filename_test_categories = flujo + '/out_' + flujo + '_1_categories_validation.txt'
@@ -65,9 +74,7 @@ for elemento in lineas_dataset_test:
 
 
 print('la cantidad de líneas en y_test es = ' + str(len(y_test)))
-print('\n\n')
-print(y_test[0])
-y_pred = algoritmo.predict(y_test)
+y_pred = algoritmo.predict(np.array(y_test))
 print(y_pred)
 print(categories_rial)
 matriz = confusion_matrix(categories_rial, y_pred)
