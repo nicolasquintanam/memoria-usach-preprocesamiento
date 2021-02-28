@@ -4,9 +4,27 @@ import multiprocessing
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
+import getopt
+import sys
 
-filename_train_dataset = 'flujo_experimental_1_dataset_train.csv'
-filename_train_categories = 'flujo_experimental_1_tenders-category-train.txt'
+flujo = 'flujo_base'
+
+try:
+    options, remainder = getopt.getopt(
+        sys.argv[1:],
+        'i',
+        ['input='])
+except getopt.GetoptError as err:
+    print('ERROR:', err)
+    sys.exit(1)
+
+for opt, arg in options:
+    if opt in ('-i', '--input'):
+        flujo = arg
+
+
+filename_train_dataset = flujo + '_dataset_train.csv'
+filename_train_categories = flujo + '_tenders-category-train.txt'
 
 algoritmo = GaussianNB()
 
