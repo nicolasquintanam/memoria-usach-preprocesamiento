@@ -109,6 +109,8 @@ python3 entrenamiento.py --input flujo_experimental_9
 # ---- Flujo experimental 10 -----
 wget --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://drive.google.com/uc?export=download&id=1_MQ2DxkWKO5fZmBc61E6YitaEMDN8ryk' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1_MQ2DxkWKO5fZmBc61E6YitaEMDN8ryk" -O flujo_experimental_10.zip && rm -rf /tmp/cookies.txt
 unzip flujo_experimental_10.zip
+mkdir flujo_experimental_10
+mv flujo_experimental_10_* flujo_experimental_10
 python3 split.py --input flujo_experimental_10
 python3 entrenamiento.py --input flujo_experimental_10
 
