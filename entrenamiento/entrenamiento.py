@@ -46,16 +46,30 @@ for element in file_train_dataset:
     i = i + 1
     print(i)
 
+filename_test_dataset = flujo + '/out_' + flujo + '_1_dataset_validation.csv'
 filename_test_categories = flujo + '/out_' + flujo + '_1_categories_validation.txt'
+file_test_dataset = open(filename_test_dataset, 'r')
 file_test_categories = open(filename_test_categories, 'r')
-lineas_test = file_test_categories.readlines()
+lineas_dataset_test = file_test_dataset.readlines()
+lineas_categories_test = file_test_categories.readlines()
 y_test = []
-for elemento in lineas_test:
-    elemento = elemento.replace('\n', '')
-    y_test.append(y_test)
+categories_rial = []
+i = 0
+for elemento in lineas_dataset_test:
+    elemento = elemento.replace('\n', '').split(';')
+    map_object = map(int, elemento)
+    X = list(map_object)
+    categories_rial.append(int(lineas_categories_test[i]))
+    i = i + 1
+    y_test.append(X)
+
 
 print('la cantidad de líneas en y_test es = ' + str(len(y_test)))
+print('\n\n')
+print(y_test[0])
 y_pred = algoritmo.predict(y_test)
-matriz = confusion_matrix(y_test, y_pred)
+print(y_pred)
+print(categories_rial)
+matriz = confusion_matrix(categories_rial, y_pred)
 print(matriz)
-print(algoritmo.class_count_)
+#print(algoritmo.class_count_)
