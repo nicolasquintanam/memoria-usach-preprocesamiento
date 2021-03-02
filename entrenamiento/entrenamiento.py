@@ -28,7 +28,7 @@ for opt, arg in options:
 filename_abstract = 'abstract/' + flujo + '.txt'
 file_abstract = open(filename_abstract, 'w')
 list_accuracy = []
-for j in range(2):
+for j in range(5):
 
     filename_train_dataset = flujo + '/out_' + flujo + '_'+str(j+1)+'_dataset_train.csv'
     filename_train_categories = flujo + '/out_' + flujo + '_'+str(j+1)+'_categories_train.txt'
@@ -72,19 +72,13 @@ for j in range(2):
 
     y_pred = algoritmo.predict(np.array(y_test))
     matriz = confusion_matrix(categories_rial, y_pred)
-    print(matriz)
     exactitud = accuracy_score(categories_rial, y_pred)
-    print(exactitud)
     list_accuracy.append(exactitud)
-
-
     exactitud = accuracy_score(categories_rial, y_pred)
     matriz = confusion_matrix(categories_rial, y_pred)
     file_abstract.write('Iteration ' + str(j+1) + ': \n\n')
     file_abstract.write('Accuracy = ' + str(exactitud) + '\n\n')
-
     file_abstract.write('Confusion Matrix \n\n')
-    print(matriz)
     file_abstract.write(np.array2string(matriz, separator=', '))
     file_abstract.write('\n\n')
     file_abstract.write('-----------------------------------')
@@ -93,6 +87,7 @@ for j in range(2):
     file_test_categories.close()
     file_train_dataset.close()
     file_train_categories.close()
+    print('finalizó iteración ' + str(i+1))
 
 accuracy_average = sum(list_accuracy)/len(list_accuracy)
 file_abstract.write('ACCURACY AVERAGE = ' + str(accuracy_average))
