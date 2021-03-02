@@ -95,7 +95,7 @@ for j in range(2):
     file_train_categories.close()
 
 accuracy_average = sum(list_accuracy)/len(list_accuracy)
-file_abstract.write('AVERAGE = ' + str(accuracy_average))
+file_abstract.write('ACCURACY AVERAGE = ' + str(accuracy_average))
 file_abstract.close()
 
 #print(algoritmo.class_count_)
