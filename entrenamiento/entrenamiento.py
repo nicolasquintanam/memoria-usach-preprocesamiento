@@ -6,7 +6,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
-from sklearn.metrics import precision_score
 import getopt
 import sys
 
@@ -29,7 +28,7 @@ for opt, arg in options:
 filename_abstract = 'abstract/' + flujo + '.txt'
 file_abstract = open(filename_abstract, 'w')
 list_accuracy = []
-for j in range(5):
+for j in range(2):
 
     filename_train_dataset = flujo + '/out_' + flujo + '_'+str(j+1)+'_dataset_train.csv'
     filename_train_categories = flujo + '/out_' + flujo + '_'+str(j+1)+'_categories_train.txt'
@@ -83,6 +82,7 @@ for j in range(5):
     matriz = confusion_matrix(categories_rial, y_pred)
     file_abstract.write('Iteration ' + str(j+1) + ': \n\n')
     file_abstract.write('Accuracy = ' + str(exactitud) + '\n\n')
+
     file_abstract.write('Confusion Matrix \n\n')
     print(matriz)
     file_abstract.write(np.array2string(matriz, separator=', '))
