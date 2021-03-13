@@ -52,10 +52,10 @@ def create_lemmatization_dictionary(lemmatization_dictionary, file_name):
 # tos, comas y puntuaciones en general,  eliminar números y eliminar palabras que contienen 
 # solo una letra.
 def standardize(words, listado_palabras_frecuencia_1):
-    #words = to_lowercase(words)
-    #words = remove_punctuation(words)
-    #words = remove_number(words)
-    #words = remove_one_character_words(words)
+    words = words.replace('\n', ' ')
+    words = words.replace('\t', ' ')
+    words = words.replace('\r', ' ')
+    words = words.replace('_', ' ')
     # Si viene vacío el listado de palabras con frecuencia 1, no considerar.
     if(listado_palabras_frecuencia_1 == []):
         return words
@@ -89,9 +89,9 @@ def crear_listado_palabras_frecuencia_1(input):
     
     i = 0
     for linea in archivo_entrada:
-                                        # linea = "ID-123####Este es un texto."
-        linea = linea.split('####')     # linea = ["ID-123", "Este es un texto."]
-        linea = linea[1]                # linea = "Este es un texto."
+                                            # linea = "ID-123####Este es un texto."
+        linea = linea.split('####')         # linea = ["ID-123", "Este es un texto."]
+        linea = standardize(linea[1], [])   # linea = "Este es un texto."
         linea = linea.split(' ')        # linea = ["este", "es", "un", "texto"]
         # almacenar lo mismo que en 'linea' pero sin palabras repetidas
         new_linea = []      
