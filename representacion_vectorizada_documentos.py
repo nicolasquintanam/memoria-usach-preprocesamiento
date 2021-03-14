@@ -16,7 +16,6 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_function, words_frequ
     one_hot_words_file = open('output files/' + output_folder + '_one-hot-words.txt', 'w')        ## Archivo con las columnas del dataset
     tenders_id_file = open('output files/' + output_folder + '_tenders-id.txt', 'w')              ## Archivo con los ID de las licitaciones
     tenders_category_file = open('output files/' + output_folder + '_tenders-category.txt', 'w')  ## Archivo con las categorías de las licitaciones
-    
 
     textos_preprocesados = []               ## Listado de todos los textos preprocesados
     listado_id_licitaciones = []                ## ID's de las licitaciones
@@ -46,18 +45,17 @@ def one_hot_paralelize(corpus, tiene_bigrama, preprocesing_function, words_frequ
     i = 0
     for texto in resultado:
         listado = texto.split('####') 
-        if(listado[0] not in listado_id_licitaciones):
-            listado_id_licitaciones.append(listado[0])                      # [0] ID de la licitación
-            texto_preprocesado = listado[1].split(' ')                      # [1] --------------------------------
-            if(tiene_bigrama):                                              # ------------  Texto ----------------
-                texto_preprocesado = list_to_bigram(texto_preprocesado)     # ---------- preprocesado ------------
-            textos_preprocesados.append(texto_preprocesado)                 # ------------------------------------
-            categorias_licitaciones.append(listado[2])                      # [2] Categoría de la licitación
-            tokens_total_antes_preprocesamiento += int(listado[3])          # [3] Cantidad de tokens antes del preprocesamiento
-            tokens_total_despues_preprocesamiento += int(listado[4])        # [4] Cantidad de tokens después del preprocesamiento
-            tiempo_total_por_documento += float(listado[5])                 # [5] Tiempo en que demoró en preprocesar el texto
-            i = i + 1
-            print(i)
+        listado_id_licitaciones.append(listado[0])                      # [0] ID de la licitación
+        texto_preprocesado = listado[1].split(' ')                      # [1] --------------------------------
+        if(tiene_bigrama):                                              # ------------  Texto ----------------
+            texto_preprocesado = list_to_bigram(texto_preprocesado)     # ---------- preprocesado ------------
+        textos_preprocesados.append(texto_preprocesado)                 # ------------------------------------
+        categorias_licitaciones.append(listado[2])                      # [2] Categoría de la licitación
+        tokens_total_antes_preprocesamiento += int(listado[3])          # [3] Cantidad de tokens antes del preprocesamiento
+        tokens_total_despues_preprocesamiento += int(listado[4])        # [4] Cantidad de tokens después del preprocesamiento
+        tiempo_total_por_documento += float(listado[5])                 # [5] Tiempo en que demoró en preprocesar el texto
+        i = i + 1
+        print(i)
     
     # Se crea el listado de palabras que contiene el vector one hot. Primero que todo, 
     # del listado de textos preprocesados  se transforma en un simple listado de todas
