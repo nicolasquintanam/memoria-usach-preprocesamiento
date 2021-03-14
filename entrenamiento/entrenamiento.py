@@ -30,7 +30,7 @@ file_abstract_test_group = open(filename_abstract_test_group, 'w')
 file_abstract = open(filename_abstract, 'w')
 list_accuracy_test_group = []
 list_accuracy = []
-for j in range(2):
+for j in range(5):
     # --- INICIO ENTRENAMIENTO
     filename_train_dataset = flujo + '/out_' + flujo + '_' + str(j+1) + '_dataset_train.csv'
     filename_train_categories = flujo + '/out_' + flujo + '_' + str(j+1) + '_categories_train.txt'
