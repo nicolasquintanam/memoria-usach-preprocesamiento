@@ -61,21 +61,20 @@ for j in range(2):
     filename_validation_categories = flujo + '/out_' + flujo + '_'+str(j+1)+'_categories_validation.txt'
     file_validation_dataset = open(filename_validation_dataset, 'r')
     file_validation_categories = open(filename_validation_categories, 'r')
-    lineas_dataset_validation = file_validation_dataset.readlines()
     lineas_categories_validation = file_validation_categories.readlines()
 
-    y_validation = []
+    y_test = []
     categories_rial = []
     i = 0
-    for elemento in lineas_dataset_validation:
+    for elemento in file_validation_dataset:
         elemento = elemento.replace('\n', '').split(';')
         map_object = map(int, elemento)
         X = list(map_object)
         categories_rial.append(int(lineas_categories_validation[i]))
         i = i + 1
-        y_validation.append(X)
+        y_test.append(X)
 
-    y_pred = algoritmo.predict(np.array(y_validation))
+    y_pred = algoritmo.predict(np.array(y_test))
     matriz = confusion_matrix(categories_rial, y_pred)
     exactitud = accuracy_score(categories_rial, y_pred)
     list_accuracy.append(exactitud)
@@ -88,19 +87,23 @@ for j in range(2):
     file_abstract.write('\n\n')
     file_abstract.write('-----------------------------------')
     file_abstract.write('\n\n')
+    file_validation_dataset.close()
+    file_validation_categories.close()
+    lineas_categories_validation = []
     #----- FIN PREDICCIÓN GRUPO DE VALIDACIÓN
     #----- INICIO PREDICCIÓN GRUPO DE TEST
+    y_pred = []
+    y_test = []
+    categories_rial = []
+
     filename_test_dataset = flujo + '/out_' + flujo + '_dataset_test.csv'
     filename_test_categories = flujo + '/out_' + flujo + '_tenders-category-test.txt'
     file_test_dataset = open(filename_test_dataset, 'r')
     file_test_categories = open(filename_test_categories, 'r')
-    lineas_dataset_test = file_test_dataset.readlines()
     lineas_categories_test = file_test_categories.readlines()
-
-    y_test = []
-    categories_rial = []
+    
     i = 0
-    for elemento in lineas_dataset_test:
+    for elemento in file_test_dataset:
         elemento = elemento.replace('\n', '').split(';')
         map_object = map(int, elemento)
         X = list(map_object)
@@ -123,8 +126,7 @@ for j in range(2):
     file_abstract_test_group.write('\n\n')
     #----- FIN PREDICCIÓN GRUPO DE TEST
 
-    file_validation_dataset.close()
-    file_validation_categories.close()
+    
     file_train_dataset.close()
     file_train_categories.close()
     file_test_dataset.close()
