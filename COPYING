@@ -1,0 +1,47 @@
+ -----------
+ 1.- LICENSE
+ -----------
+
+   All data and code modules included in this package 
+ (except those listed below, under "2.-EXCEPTIONS") are
+ distributed under GNU Affero General Public License.
+
+   You can find a copy of Affero GPL license in the file
+ LICENSES/AGPL.license included in this package, or at
+ http://www.gnu.org/licenses/agpl
+
+ --------------
+ 2.- EXCEPTIONS
+ --------------
+
+   Some contents of this package are copyrighted by a third party and 
+ distributed under different open licenses.
+
+ 
+ 2a.- DATA COMPONENTS
+ -------------------- 
+
+ Data components copyrighted by a third party with licenses other 
+ than AGPL are:
+
+ 
+1.- Spanish dictionary contained in the files adjetivos.txt, adverbios.txt,
+     otros.txt, sustantivos.txt, verbos.txt in linguistic data folder is
+     extracted from the Spanish Resource Grammar projects
+     (http://www.upf.edu/pdi/iula/montserrat.marimon/srg.html) and was
+     developed at the Institut Universitari de Linguistica Aplicada
+     (http://www.iula.upf.edu) of the Universitat Pompeu Fabra. It is
+     distributed under a "Lesser General Public License For Linguistic
+     Resources" license. You'll find the license in the file
+     LICENSES/LGPLLR.license included in this package or at
+     http://sanskrit.inria.fr/DATA/LGPLLR.html
+
+
+2.- Chilean Spanish dictionary contained in the files adjetivos-chile.txt, adverbios-chile.txt,
+     gentilicios-chile.txt, interjecciones-chile.txt, otros-chile.txt, sustantivos-chile.txt,
+     verbos-chile.txt in linguistic data folder was developed by Scott Sadowsky at
+     Pontificia Universidad Católica de Chile. It is distributed 
+     under Affero General Public License 3.0.
+     You'll find the license in the file LICENSES/AGPL.license included 
+     in this package or at http://www.gnu.org/licenses/agpl
+
